@@ -104,7 +104,7 @@ module.exports = {
     config: {
         name: "sing", 
         version: "1.0",
-        author: "Raphael ilom",
+        author: "Vex_Kshitiz",
         countDown: 10,
         role: 0,
         shortDescription: "play audio from youtube",
