@@ -1,42 +1,40 @@
-module.exports = {
-	config: {
-		name: "all",
-		version: "1.2",
-		author: "NTKhang",
-		countDown: 5,
-		role: 1,
-		description: {
-			vi: "Tag tất cả thành viên trong nhóm chat của bạn",
-			en: "Tag all members in your group chat"
-		},
-		category: "box chat",
-		guide: {
-			vi: "   {pn} [nội dung | để trống]",
-			en: "   {pn} [content | empty]"
-		}
-	},
+const fs = require("fs-extra");
+const axios = require("axios");
+const path = require("path");
+const { getPrefix } = global.utils;
+const { commands, aliases } = global.GoatBot;
+const doNotDelete = "🔓 | Bulma 𝑨𝑰";
 
-	onStart: async function ({ message, event, args }) {
-		const { participantIDs } = event;
-		const lengthAllUser = participantIDs.length;
-		const mentions = [];
-		let body = args.join(" ") || "@all";
-		let bodyLength = body.length;
-		let i = 0;
-		for (const uid of participantIDs) {
-			let fromIndex = 0;
-			if (bodyLength < lengthAllUser) {
-				body += body[bodyLength - 1];
-				bodyLength++;
-			}
-			if (body.slice(0, i).lastIndexOf(body[i]) != -1)
-				fromIndex = i;
-			mentions.push({
-				tag: body[i],
-				id: uid, fromIndex
-			});
-			i++;
-		}
-		message.reply({ body, mentions });
-	}
+module.exports = {
+    config: {
+        name: "all",
+        version: "1.0",
+        author: "kshitiz,// original author Hassan",
+        countDown: 5,
+        role: 0,
+        shortDescription: {
+            en: "List all available commands",
+        },
+        longDescription: {
+            en: "View a comprehensive list of all available commands",
+        },
+        category: "Admin 🛠",
+        guide: {
+            en: "{pn} / listallcmd",
+        },
+        priority: 1,
+    },
+
+    onStart: async function ({ message, args, event, threadsData, role }) {
+        const { threadID } = event;
+        const threadData = await threadsData.get(threadID);
+        const prefix = getPrefix(threadID);
+
+        const allCommands = Array.from(commands.keys());
+        const commandList = allCommands.join(", ");
+
+        const response = `Here is a list of all available commands: ${commandList}`;
+
+        await message.reply(response);
+    },
 };
