@@ -1,0 +1,43 @@
+const axios = require('axios');
+
+module.exports = {
+  config: {
+    name: "fetch",
+    version: "1.0",
+    author: "Denver",
+    countDown: 15,
+    role: 2, // Restrict access to role 2 or higher
+    shortDescription: "Fetch and display Pastebin content",
+    longDescription: "Fetches the content from a Pastebin link and displays it.",
+    category: "utility",
+    guide: "{p}{n} <Pastebin URL>"
+  },
+  onStart: async function ({ args, event, api }) {
+    try {
+      const pastebinUrl = args.join(" ").trim();
+      if (!pastebinUrl) {
+        return api.sendMessage("Please provide a Pastebin URL.", event.threadID, event.messageID);
+      }
+
+      // Check if the provided URL is a valid Pastebin link
+      if (!/^https?:\/\/pastebin\.com\/[a-zA-Z0-9]+$/.test(pastebinUrl)) {
+        return api.sendMessage("Please provide a valid Pastebin URL.", event.threadID, event.messageID);
+      }
+
+      // Extract the paste ID from the URL
+      const pasteId = pastebinUrl.split('/').pop();
+
+      // Fetch the raw content of the paste
+      const rawUrl = `https://pastebin.com/raw/${pasteId}`;
+      const response = await axios.get(rawUrl);
+
+      // Send the content as a message
+      const pasteContent = response.data;
+      await api.sendMessage(`Content from Pastebin:\n\n${pasteContent}`, event.threadID, event.messageID);
+
+    } catch (error) {
+      console.error('Error fetching Pastebin content:', error.message);
+      api.sendMessage(`Failed to fetch the Pastebin content. Error: ${error.message}`, event.threadID, event.messageID);
+    }
+  }
+};
