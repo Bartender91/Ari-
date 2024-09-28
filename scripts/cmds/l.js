@@ -43,8 +43,6 @@ module.exports = {
 
             api.setMessageReaction("⌛", event.messageID, () => { }, true);
 
-            const startTime = Date.now();
-
             try {
                 clearChatHistory(event.senderID);
 
@@ -65,13 +63,7 @@ module.exports = {
 
                 const assistantResponse = chatCompletion.choices[0].message.content;
 
-                const endTime = new Date().getTime();
-                const completionTime = ((endTime - startTime) / 1000).toFixed(2);
-                const totalWords = assistantResponse.split(/\s+/).filter(word => word !== '').length;
-
-                let finalMessage = `${assistantResponse}\n\nCompletion time: ${completionTime} seconds\nTotal words: ${totalWords}`;
-
-                message.reply(finalMessage, (err, info) => {
+                message.reply(assistantResponse, (err, info) => {
                     if (!err) {
                         global.GoatBot.onReply.set(info.messageID, {
                             commandName,
@@ -91,7 +83,7 @@ module.exports = {
             } catch (error) {
                 console.error("Error in chat completion:", error);
                 api.setMessageReaction("❌", event.messageID, () => { }, true);
-                return message.reply(`An error occured.`);
+                return message.reply(`An error occurred.`);
             }
         }
         else {
@@ -103,8 +95,6 @@ module.exports = {
             }
 
             api.setMessageReaction("⌛", event.messageID, () => { }, true);
-
-            const startTime = Date.now();
 
             try {
                 clearChatHistory(event.senderID);
@@ -126,13 +116,7 @@ module.exports = {
 
                 const assistantResponse = chatCompletion.choices[0].message.content;
 
-                const endTime = new Date().getTime();
-                const completionTime = ((endTime - startTime) / 1000).toFixed(2);
-                const totalWords = assistantResponse.split(/\s+/).filter(word => word !== '').length;
-
-                let finalMessage = `${assistantResponse}\n\nCompletion time: ${completionTime} seconds\nTotal words: ${totalWords}`;
-
-                message.reply(finalMessage, (err, info) => {
+                message.reply(assistantResponse, (err, info) => {
                     if (!err) {
                         global.GoatBot.onReply.set(info.messageID, {
                             commandName,
@@ -152,7 +136,7 @@ module.exports = {
             } catch (error) {
                 console.error("Error in chat completion:", error);
                 api.setMessageReaction("❌", event.messageID, () => { }, true);
-                return message.reply(`An error occured.`);
+                return message.reply(`An error occurred.`);
             }
         }
     },
@@ -169,8 +153,6 @@ module.exports = {
         }
 
         api.setMessageReaction("⌛", event.messageID, () => { }, true);
-
-        const startTime = Date.now();
 
         try {
             const chatHistory = loadChatHistory(event.senderID);
@@ -193,13 +175,7 @@ module.exports = {
 
             const assistantResponse = chatCompletion.choices[0].message.content;
 
-            const endTime = new Date().getTime();
-            const completionTime = ((endTime - startTime) / 1000).toFixed(2);
-            const totalWords = assistantResponse.split(/\s+/).filter(word => word !== '').length;
-
-            let finalMessage = `${assistantResponse}\n\nCompletion time: ${completionTime} seconds\nTotal words: ${totalWords}`;
-
-            message.reply(finalMessage, (err, info) => {
+            message.reply(assistantResponse, (err, info) => {
                 if (!err) {
                     global.GoatBot.onReply.set(info.messageID, {
                         commandName,
@@ -218,7 +194,7 @@ module.exports = {
             api.setMessageReaction("✅", event.messageID, () => { }, true);
         } catch (error) {
             console.error("Error in chat completion:", error);
-            message.reply(`An error occured.`);
+            message.reply(`An error occurred.`);
             api.setMessageReaction("❌", event.messageID, () => { }, true);
         }
     }
@@ -269,4 +245,4 @@ function clearChatHistory(uid) {
     } catch (err) {
         console.error("Error deleting chat history file:", err);
     }
-            }
+}
