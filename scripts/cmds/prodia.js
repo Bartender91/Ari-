@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = {
   config: {
-    name: "prodia",
+    name: "prodia2",
     version: "1.1",
     author: "Raphael scholar",
     role: 0,
