@@ -19,8 +19,7 @@
 		"ignoreCommand": []
 	},
 	"adminBot": [
-		"61565074083641",
-		""
+		"61565074083641"
 	],
 	"whiteListMode": {
 		"enable": false,
@@ -43,7 +42,6 @@
 	"timeZone": "Asia/Ho_Chi_Minh",
 	"credentials": {
 		"gmailAccount": {
-			 "gmailAccount": {
       "email": "ilomikparaphael@gmail.com",
       "clientId": "707976531024-j0h1m1r5lld2ck2eb0iss8pet8fkiu2g.apps.googleusercontent.com",
       "clientSecret": "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",
