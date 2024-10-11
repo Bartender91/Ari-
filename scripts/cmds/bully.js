@@ -71,8 +71,8 @@ function clearHistory(userID) {
 }
 
 module.exports.config = {
-  name: "toxic",
-  aliases: "bully",
+  name: "bully",
+  aliases: "toxic",
   version: "1.0",
   role: 0,
   author: "Jsus",
