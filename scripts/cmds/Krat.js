@@ -19,7 +19,7 @@ const PERSONALITY_TYPES = [
   "lover", "helpful", "friendly", "toxic", "bisaya", "horny", "tagalog", "professional", "poetic", "philosopher"
 ];
 
-const API_ENDPOINT = "https://apis-v70.onrender.com/g4o";
+const API_ENDPOINT = "https://apis-v71.onrender.com/g4o";
 
 module.exports = {
   config: {
