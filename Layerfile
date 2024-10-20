@@ -1,0 +1,6 @@
+FROM webapp.io/node:16
+
+COPY / /root
+RUN npm install
+RUN BACKGROUND node index.js 
+EXPOSE WEBSITE localhost:3000
